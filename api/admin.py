@@ -34,9 +34,9 @@ class TimeEntryAdmin(admin.ModelAdmin):
     time
     entry_type
     """
-    list_display = ('id', 'worker', 'time', 'entry_type')
+    list_display = ('id', 'worker', 'entry_type', 'time')
     list_display_links = ('id',)
-    list_filter = ('worker', 'entry_type')
+    list_filter = ('worker', 'entry_type', 'time')
     list_per_page = 10
     ordering = ('id',)
     search_fields = ('worker', 'entry_type')
