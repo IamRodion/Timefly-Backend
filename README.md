@@ -49,10 +49,23 @@ Este proyecto utiliza las siguientes tecnologías:
 1. Realiza las migraciones de la base de datos:
 
    ```bash
+   python manage.py makemigrations
    python manage.py migrate
    ```
 
-2. Inicia el servidor de desarrollo:
+2. Crea un usuario administrador para acceder a la ruta /admin/
+
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+3. Re-organiza los archivos "static" en una sola ruta raíz "static"
+
+   ```bash
+   python manage.py collectstatic
+   ```
+
+4. Inicia el servidor:
 
    ```bash
    python manage.py runserver
