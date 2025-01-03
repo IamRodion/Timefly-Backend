@@ -2,6 +2,7 @@ venv/
 .env
 api/__pycache__/
 api/migrations/
+api/migrations/__pycache__
 Timefly/__pycache__/
 db.sqlite3
 staticfiles/

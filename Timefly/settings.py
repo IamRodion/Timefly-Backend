@@ -27,9 +27,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = bool(os.getenv('DEBUG'))
 
-ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = list(os.getenv('ALLOWED_HOSTS'))
 
 
 # Application definition
@@ -64,11 +66,14 @@ MIDDLEWARE = [
 ]
 
 
-CORS_ORIGIN_ALLOW_ALL = True  # Desactivar en producción
-# CORS_ORIGIN_WHITELIST = [
-#     'http://localhost:3000',  # Reemplazar con los orígenes permitidos
-# ]
+#CORS_ORIGIN_ALLOW_ALL = True  # Desactivar en producción
+CORS_ORIGIN_ALLOW_ALL = bool(os.getenv('ALLOWED_HOSTS'))
 
+#CORS_ORIGIN_WHITELIST = [
+#    'http://localhost',
+#    'https://localhost',  # Reemplazar con los orígenes permitidos
+#]
+CORS_ORIGIN_WHITELIST = os.getenv('CORS_ORIGIN_WHITELIST').split(',')
 
 ROOT_URLCONF = 'Timefly.urls'
 
