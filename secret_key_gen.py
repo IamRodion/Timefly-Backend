@@ -28,7 +28,7 @@ else:
     ALLOWED_HOSTS = "['iamrodion.pythonanywhere.com']"
     DEBUG = False
     CORS_ORIGIN_ALLOW_ALL = False
-    CORS_ORIGIN_WHITELIST = "https://iamrodion.pythonanywhere.com, "
+    CORS_ORIGIN_WHITELIST = "https://iamrodion.pythonanywhere.com"
     write_file(ALLOWED_HOSTS=ALLOWED_HOSTS, DEBUG=DEBUG, CORS_ORIGIN_ALLOW_ALL=CORS_ORIGIN_ALLOW_ALL, CORS_ORIGIN_WHITELIST=CORS_ORIGIN_WHITELIST)
 
 
