@@ -38,11 +38,22 @@ Este proyecto utiliza las siguientes tecnologías:
 
 4. Configura las variables de entorno:
 
-   Crea un archivo `.env` en el directorio raíz del proyecto y define la clave secreta de Django:
+   Crea un archivo `.env` en el directorio raíz del proyecto que define la clave secreta de Django y más configuraciones necesarias para el funcionamiento del proyecto:
 
    ```bash
-   python secret_key_gen.py
+   python deploy.py
    ```
+
+   ```
+   Timefly-Backend> python deploy.py # Ejecuta el archivo
+   Elige el ambiente para desplegar:
+   [1] Producción
+   [2] Desarrollo
+   >2 # Selecciona la opción
+   [!] Se configuró el ambiente para desarrollo
+   ```
+
+   Ten en cuenta que sí eliges la opción de **Desarrollo** debes configurar manualmente Apache, Nginx, Guvicorn o el servidor http que uses.
 
 ### Ejecución
 
@@ -50,6 +61,7 @@ Este proyecto utiliza las siguientes tecnologías:
 
    ```bash
    python manage.py makemigrations
+   python manage.py makemigrations api
    python manage.py migrate
    ```
 
@@ -71,7 +83,33 @@ Este proyecto utiliza las siguientes tecnologías:
    python manage.py runserver
    ```
 
-3. Accede a la API en `http://localhost:8000`.
+5. Accede a la API en `http://localhost:8000`.
+
+## Endpoints
+
+### /
+
+- **GET /**: Muestra la documentación
+
+### /api/
+
+- **GET /api/workers/**: Obtiene una lista de todos los trabajadores registrados.
+- **POST /api/workers/**: Crea un nuevo trabajador. Requiere un cuerpo de solicitud con los campos `firstname`, `lastname`, `email`, `employe_id`, `department`, `hire_date`, y `active`.
+
+- **GET /api/workers/{id}/**: Obtiene los detalles de un trabajador específico por su `id`.
+- **PUT /api/workers/{id}/**: Actualiza la información de un trabajador específico. Requiere un cuerpo de solicitud con los campos a actualizar.
+- **DELETE /api/workers/{id}/**: Elimina un trabajador específico por su `id`.
+
+- **GET /api/time-entries/**: Obtiene una lista de todos los registros de tiempo.
+- **POST /api/time-entries/**: Crea un nuevo registro de tiempo. Requiere un cuerpo de solicitud con los campos `worker`, `time`, y `entry_type`.
+
+- **GET /api/time-entries/{id}/**: Obtiene los detalles de un registro de tiempo específico por su `id`.
+- **PUT /api/time-entries/{id}/**: Actualiza un registro de tiempo específico. Requiere un cuerpo de solicitud con los campos a actualizar.
+- **DELETE /api/time-entries/{id}/**: Elimina un registro de tiempo específico por su `id`.
+
+### /admin/
+
+- **/admin/**: Interfaz de administración de Django para gestionar los modelos y datos de la aplicación. Requiere autenticación de usuario administrador.
 
 ## Estructura del Proyecto
 
