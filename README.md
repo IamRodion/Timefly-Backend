@@ -44,16 +44,17 @@ Este proyecto utiliza las siguientes tecnologías:
    python deploy.py
    ```
 
+   Se verá el siguiente menú, el cual se puede navegar usando las flechas o números. Y enter para seleccionar la opción:
+
    ```
-   Timefly-Backend> python deploy.py # Ejecuta el archivo
-   Elige el ambiente para desplegar:
-   [1] Producción
-   [2] Desarrollo
-   >2 # Selecciona la opción
-   [!] Se configuró el ambiente para desarrollo
+                     DEPLOY.PY
+
+   [1] Configuración para desarrollo
+   [2] Configuración para servidor
+   [0] Cerrar deploy.py
    ```
 
-   Ten en cuenta que sí eliges la opción de **Desarrollo** debes configurar manualmente Apache, Nginx, Guvicorn o el servidor http que uses.
+   Ten en cuenta que sí eliges la opción **Configuración para servidor** debes configurar manualmente Apache, Nginx, Guvicorn o el servidor http que uses.
 
 ### Ejecución
 
