@@ -1,28 +1,88 @@
-import secrets, os
-from dotenv import load_dotenv, set_key
+import secrets
+import curses
+from curses import wrapper
+from dotenv import set_key
 
-ENV_PATH = '.env'
-load_dotenv()
+class Deployer:
+    ENV_PATH = '.env'
+    TITLE_TEXT = "DEPLOY.PY"
+    OPTIONS = [
+        "[1] Configuración para desarrollo",
+        "[2] Configuración para servidor",
+        "[0] Cerrar deploy.py"
+    ]
 
-def generate_secret_key()-> str:
-    """Genera un string largo aleatoriamente"""
-    return ''.join(secrets.choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:,.<>/?') for i in range(50))
+    def __init__(self):
+        pass
 
-set_key(ENV_PATH, 'SECRET_KEY', generate_secret_key())
+    def generate_secret_key(self) -> str:
+        """Genera un string largo aleatoriamente"""
+        characters = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()-_=+[]{}|;:,.<>/?'
+        return ''.join(secrets.choice(characters) for _ in range(50))
 
-ENVIRONMENT = input("Elige el ambiente para desplegar:\n[1] Producción\n[2] Desarrollo\n>")
+    def run(self, stdscr):
+        curses.init_pair(1, 46, curses.COLOR_BLACK)
+        stdscr.keypad(True)
+        curses.curs_set(False)
 
-if ENVIRONMENT == '1':
-    ALLOWED_HOSTS = input("Indique los host permitidos (* para permitir todos):\n>")
-    CORS_ORIGIN_WHITELIST = input("Indique los orígenes permitidos (Use 'http://localhost' para permitir el mismo servidor):\n>")
+        TITLE = curses.color_pair(1) | curses.A_BOLD
+        TEXT = curses.color_pair(1)
+        SELECTED_TEXT = curses.color_pair(1) | curses.A_REVERSE
 
-    set_key(ENV_PATH, 'ENVIRONMENT', 'production')
-    set_key(ENV_PATH, 'ALLOWED_HOSTS', ALLOWED_HOSTS)
-    set_key(ENV_PATH, 'CORS_ORIGIN_WHITELIST', CORS_ORIGIN_WHITELIST)
-    
-    print("[!] Se configuró el ambiente para producción")
-elif ENVIRONMENT == '2':
-    set_key(ENV_PATH, 'ENVIRONMENT', 'dev')
-    print("[!] Se configuró el ambiente para desarrollo")
-else:
-    print("[!] La opción indicada es incorrecta, no se desplegó ni configuró el ambiente.")
+        position = 3
+
+        set_key(self.ENV_PATH, 'SECRET_KEY', self.generate_secret_key())
+        
+        while True:
+            self.display_menu(stdscr, position, TITLE, TEXT, SELECTED_TEXT)
+            key = stdscr.getkey()
+
+            if key == '0' or (key == '\n' and position == 3):
+                break
+            elif key == '1' or (key == '\n' and position == 1):
+                set_key(self.ENV_PATH, 'ENVIRONMENT', 'dev')
+                self.display_message(stdscr, "[!] Se configuró el ambiente para desarrollo", TITLE, SELECTED_TEXT)
+            elif key == '2' or (key == '\n' and position == 2):
+                set_key(self.ENV_PATH, 'ENVIRONMENT', 'production')
+                set_key(self.ENV_PATH, 'ALLOWED_HOSTS', '*')
+                set_key(self.ENV_PATH, 'CORS_ORIGIN_WHITELIST', 'http://localhost')
+                self.display_message(stdscr, "[!] Se configuró el ambiente para el servidor", TITLE, SELECTED_TEXT)
+            elif key in ('KEY_DOWN', 'KEY_RIGHT'):
+                position = 1 if position >= 3 else position + 1
+            elif key in ('KEY_UP', 'KEY_LEFT'):
+                position = 3 if position <= 1 else position - 1
+            else:
+                self.display_error(stdscr, key, TEXT)
+
+            stdscr.refresh()
+
+        curses.nocbreak()
+        stdscr.keypad(False)
+        curses.echo()
+
+    def display_menu(self, stdscr, position, TITLE, TEXT, SELECTED_TEXT):
+        stdscr.clear()
+        sh, sw = stdscr.getmaxyx()
+        stdscr.addstr(0, (sw - len(self.TITLE_TEXT)) // 2, self.TITLE_TEXT, TITLE)
+        for idx, option in enumerate(self.OPTIONS, start=1):
+            stdscr.addstr(idx + 1, 1, option, SELECTED_TEXT if position == idx else TEXT)
+
+    def display_message(self, stdscr, message, TITLE, SELECTED_TEXT):
+        stdscr.clear()
+        curses.curs_set(True)
+        sh, sw = stdscr.getmaxyx()
+        stdscr.addstr(0, (sw - len(self.TITLE_TEXT)) // 2, self.TITLE_TEXT, TITLE)
+        stdscr.addstr(2, 1, message, SELECTED_TEXT)
+        stdscr.getch()
+        curses.curs_set(False)
+
+    def display_error(self, stdscr, key, TEXT):
+        stdscr.addstr(9, 1, f"[Error] No existe opción {key}", TEXT)
+        stdscr.getch()
+
+if __name__ == '__main__':
+    try:
+        deployer = Deployer()
+        wrapper(deployer.run)
+    except Exception as e:
+        print(f"An error occurred: {e}")
