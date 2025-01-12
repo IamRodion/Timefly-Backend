@@ -16,8 +16,3 @@ jobs:
           username: ${{ secrets.USERNAME }}
           api_token: ${{ secrets.API_TOKEN }}
           domain_name: ${{ secrets.DOMAIN_NAME }}
-          working_directory: '/home/IamRodion/Timefly-Backend'
-          run: |
-            cd $WORKING_DIRECTORY
-            git fetch
-            git merge origin/main
