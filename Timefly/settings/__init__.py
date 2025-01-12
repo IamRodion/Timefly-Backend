@@ -1,7 +1,7 @@
 import os
-#from dotenv import load_dotenv
+from dotenv import load_dotenv
 
-#load_dotenv()
+load_dotenv()
 
 def get_secret(secret_id, backup=None):
     return os.getenv(secret_id, backup)
