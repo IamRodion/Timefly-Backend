@@ -1,2 +1,3 @@
-- name: Re-Deploy Pythonanywhere Django API
-uses: umuttopalak/pythonanywhere-deploy-action@v1.1.0
+              - name: Re-Deploy Pythonanywhere Django API
+                uses: umuttopalak/pythonanywhere-deploy-action@v1.1.0
+            
