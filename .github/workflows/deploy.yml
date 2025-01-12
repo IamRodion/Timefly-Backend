@@ -12,7 +12,7 @@ jobs:
       - name: Re-Deploy Pythonanywhere Django API
         uses: umuttopalak/pythonanywhere-deploy-action@v1.1.0
         with:
-          host: 'www.pythonanywhere.com' or 'www.eu.pythonanywhere.com'
+          host: 'www.pythonanywhere.com'
           username: ${{ secrets.USERNAME }}
           api_token: ${{ secrets.API_TOKEN }}
           domain_name: ${{ secrets.DOMAIN_NAME }}
