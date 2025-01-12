@@ -16,10 +16,8 @@ jobs:
           username: ${{ secrets.USERNAME }}
           api_token: ${{ secrets.API_TOKEN }}
           domain_name: ${{ secrets.DOMAIN_NAME }}
-          working_directory: ${{ secrets.WORKING_DIRECTORY }}  # Reemplaza con la ruta correcta
-          # Agregar un paso para ejecutar git pull con opciones adicionales
+          working_directory: '/home/IamRodion/Timefly-Backend'
           run: |
             cd $WORKING_DIRECTORY
-#            git pull
             git fetch
-            git merge origin/main  # O la rama que corresponda
+            git merge origin/main
