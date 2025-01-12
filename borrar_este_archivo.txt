@@ -1,0 +1,1 @@
+Este archivo solo existe para probar que Github Actions está funcionando, borrar sí es así.
