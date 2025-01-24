@@ -29,7 +29,7 @@ class Deployer:
         TEXT = curses.color_pair(1)
         SELECTED_TEXT = curses.color_pair(1) | curses.A_REVERSE
 
-        position = 3
+        position = 2
 
         set_key(self.ENV_PATH, 'SECRET_KEY', self.generate_secret_key())
         
@@ -37,20 +37,22 @@ class Deployer:
             self.display_menu(stdscr, position, TITLE, TEXT, SELECTED_TEXT)
             key = stdscr.getkey()
 
-            if key == '0' or (key == '\n' and position == 3):
+            if key == '0' or (key == '\n' and position == 2):
                 break
-            elif key == '1' or (key == '\n' and position == 1):
+            elif key == '1' or (key == '\n' and position == 0):
                 set_key(self.ENV_PATH, 'ENVIRONMENT', 'dev')
                 self.display_message(stdscr, "[!] Se configuró el ambiente para desarrollo", TITLE, SELECTED_TEXT)
-            elif key == '2' or (key == '\n' and position == 2):
+            elif key == '2' or (key == '\n' and position == 1):
                 set_key(self.ENV_PATH, 'ENVIRONMENT', 'production')
                 set_key(self.ENV_PATH, 'ALLOWED_HOSTS', '*')
                 set_key(self.ENV_PATH, 'CORS_ORIGIN_WHITELIST', 'http://localhost')
                 self.display_message(stdscr, "[!] Se configuró el ambiente para el servidor", TITLE, SELECTED_TEXT)
             elif key in ('KEY_DOWN', 'KEY_RIGHT'):
-                position = 1 if position >= 3 else position + 1
+                position = (position+1) % 3
+                #position = 1 if position >= 3 else position + 1
             elif key in ('KEY_UP', 'KEY_LEFT'):
-                position = 3 if position <= 1 else position - 1
+                position = (position-1) % 3
+                #position = 2 if position <= 0 else position - 1
             else:
                 self.display_error(stdscr, key, TEXT)
 
@@ -64,7 +66,7 @@ class Deployer:
         stdscr.clear()
         sh, sw = stdscr.getmaxyx()
         stdscr.addstr(0, (sw - len(self.TITLE_TEXT)) // 2, self.TITLE_TEXT, TITLE)
-        for idx, option in enumerate(self.OPTIONS, start=1):
+        for idx, option in enumerate(self.OPTIONS, start=0):
             stdscr.addstr(idx + 1, 1, option, SELECTED_TEXT if position == idx else TEXT)
 
     def display_message(self, stdscr, message, TITLE, SELECTED_TEXT):
