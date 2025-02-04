@@ -94,19 +94,21 @@ Este proyecto utiliza las siguientes tecnologías:
 
 ### /api/
 
-- **GET /api/workers/**: Obtiene una lista de todos los trabajadores registrados.
-- **POST /api/workers/**: Crea un nuevo trabajador. Requiere un cuerpo de solicitud con los campos `firstname`, `lastname`, `email`, `employee_id`, `department`, `hire_date`, y `active`.
+- **GET /api/Worker/**: Obtiene una lista de todos los trabajadores registrados.
+- **POST /api/Worker/**: Crea un nuevo trabajador. Requiere un cuerpo de solicitud con los campos `firstname`, `lastname`, `email`, `employee_id`, `department`, `hire_date`, y `active`.
 
-- **GET /api/workers/{id}/**: Obtiene los detalles de un trabajador específico por su `id`.
-- **PUT /api/workers/{id}/**: Actualiza la información de un trabajador específico. Requiere un cuerpo de solicitud con los campos a actualizar.
-- **DELETE /api/workers/{id}/**: Elimina un trabajador específico por su `id`.
+- **GET /api/Worker/employee/{employee_id}/**: Obtiene una lista de todos los trabajadores registrados.
 
-- **GET /api/time-entries/**: Obtiene una lista de todos los registros de tiempo.
-- **POST /api/time-entries/**: Crea un nuevo registro de tiempo. Requiere un cuerpo de solicitud con los campos `worker`, `time`, y `entry_type`.
+- **GET /api/Worker/{id}/**: Obtiene los detalles de un trabajador específico por su `id`.
+- **PUT /api/Worker/{id}/**: Actualiza la información de un trabajador específico. Requiere un cuerpo de solicitud con los campos a actualizar.
+- **DELETE /api/Worker/{id}/**: Elimina un trabajador específico por su `id`.
 
-- **GET /api/time-entries/{id}/**: Obtiene los detalles de un registro de tiempo específico por su `id`.
-- **PUT /api/time-entries/{id}/**: Actualiza un registro de tiempo específico. Requiere un cuerpo de solicitud con los campos a actualizar.
-- **DELETE /api/time-entries/{id}/**: Elimina un registro de tiempo específico por su `id`.
+- **GET /api/TimeEntry/**: Obtiene una lista de todos los registros de tiempo.
+- **POST /api/TimeEntry/**: Crea un nuevo registro de tiempo. Requiere un cuerpo de solicitud con los campos `worker`, `time`, y `entry_type`.
+
+- **GET /api/TimeEntry/{id}/**: Obtiene los detalles de un registro de tiempo específico por su `id`.
+- **PUT /api/TimeEntry/{id}/**: Actualiza un registro de tiempo específico. Requiere un cuerpo de solicitud con los campos a actualizar.
+- **DELETE /api/TimeEntry/{id}/**: Elimina un registro de tiempo específico por su `id`.
 
 ### /admin/
 
