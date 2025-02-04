@@ -12,17 +12,17 @@ class WorkerAdmin(admin.ModelAdmin):
     firstname
     lastname
     email
-    employe_id
+    employee_id
     department
     hire_date
     active
     """
-    list_display = ('id', 'firstname', 'lastname', 'email', 'employe_id', 'department', 'hire_date', 'active')
-    list_display_links = ('employe_id',)
+    list_display = ('id', 'firstname', 'lastname', 'email', 'employee_id', 'department', 'hire_date', 'active')
+    list_display_links = ('employee_id',)
     list_filter = ('hire_date', 'department', 'active')
     list_per_page = 10
     ordering = ('id',)
-    search_fields = ('firstname', 'lastname', 'email', 'employe_id', 'department')
+    search_fields = ('firstname', 'lastname', 'email', 'employee_id', 'department')
     #exclude = ('id', )
 
 
