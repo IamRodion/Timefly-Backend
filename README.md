@@ -97,7 +97,7 @@ Este proyecto utiliza las siguientes tecnologías:
 - **GET /api/Worker/**: Obtiene una lista de todos los trabajadores registrados.
 - **POST /api/Worker/**: Crea un nuevo trabajador. Requiere un cuerpo de solicitud con los campos `firstname`, `lastname`, `email`, `employee_id`, `department`, `hire_date`, y `active`.
 
-- **GET /api/Worker/employee/{employee_id}/**: Obtiene una lista de todos los trabajadores registrados.
+- **GET /api/Worker/employee/{employee_id}/**: Obtiene los datos de un trabajador a través del `employee_id`
 
 - **GET /api/Worker/{id}/**: Obtiene los detalles de un trabajador específico por su `id`.
 - **PUT /api/Worker/{id}/**: Actualiza la información de un trabajador específico. Requiere un cuerpo de solicitud con los campos a actualizar.
