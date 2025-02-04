@@ -13,7 +13,7 @@ class Worker(models.Model):
     firstname = models.CharField(max_length=255)
     lastname = models.CharField(max_length=255)
     email = models.EmailField()
-    employe_id = models.CharField(max_length=255)
+    employee_id = models.CharField(max_length=255)
     department = models.CharField(max_length=50, choices=DEPARTMENTS)
     hire_date = models.DateField()
     active = models.BooleanField(default=True)
