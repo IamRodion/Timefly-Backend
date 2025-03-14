@@ -6,3 +6,4 @@ Timefly/__pycache__/
 Timefly/settings/__pycache__
 Timefly/staticfiles
 db.sqlite3
+.qodo
